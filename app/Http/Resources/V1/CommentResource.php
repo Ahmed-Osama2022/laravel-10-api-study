@@ -19,7 +19,8 @@ class CommentResource extends JsonResource
       "id" => $this->id,
       "body" => $this->body,
       'postId' =>  $this->post_id ?? null,
-      'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
+      // 'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
+      "postUrl" => "/posts/{$this->post_id}" ?? null,
       "createdAt" => $this->created_at,
       "updatedAt" => $this->updated_at,
     ];

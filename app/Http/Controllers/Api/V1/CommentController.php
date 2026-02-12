@@ -54,4 +54,16 @@ class CommentController extends Controller
   {
     //
   }
+
+  /**
+   * Get the post by a comment
+   */
+  public function getPost(Comment $comment)
+  {
+    if (!$comment->post) {
+      return ApiResponse::sendResponse('No Post founded for this Comment', [], 200);
+    }
+
+    return ApiResponse::sendResponse('Post retrieved successfully', $comment->post);
+  }
 }
