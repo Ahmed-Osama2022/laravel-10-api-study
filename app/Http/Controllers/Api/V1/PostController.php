@@ -26,6 +26,11 @@ class PostController extends Controller
     // return PostResource::collection($posts);
 
     // return ApiResponse::sendResponse('Posts retrieved', PostResource::collection($posts));
+
+    if (!$posts->isEmpty()) {
+      return ApiResponse::sendResponse('No posts found', [], 200);
+    }
+
     return ApiResponseCollection::sendResponse('Posts retrieved', PostResource::collection($posts));
   }
 }
