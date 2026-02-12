@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,8 @@ class CommentResource extends JsonResource
       "id" => $this->id,
       "title" => $this->title,
       "body" => $this->body,
-      'postId' => $this->post_id,
+      'postId' =>  $this->post_id ?? null,
+      'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
       "createdAt" => $this->created_at,
       "updatedAt" => $this->updated_at,
     ];
