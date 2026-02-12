@@ -9,8 +9,8 @@ class ApiResponseCollection
     $response = [
       'status' => $code,
       'message' => $message,
-      'data'    => $result,
       'count' => $result->count(),
+      'data'    => $result,
     ];
     return response()->json($response, $code);
   }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Helpers\ApiResponse;
+use App\Helpers\ApiResponseCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
@@ -24,6 +25,7 @@ class PostController extends Controller
     // But for a collection of posts
     // return PostResource::collection($posts);
 
-    return ApiResponse::sendResponse('Posts retrieved', $posts);
+    // return ApiResponse::sendResponse('Posts retrieved', PostResource::collection($posts));
+    return ApiResponseCollection::sendResponse('Posts retrieved', PostResource::collection($posts));
   }
 }
