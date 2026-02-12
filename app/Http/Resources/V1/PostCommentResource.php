@@ -14,12 +14,11 @@ class PostCommentResource extends JsonResource
    */
   public function toArray(Request $request): array
   {
+    // Return the "post" details
     return [
       "id" => $this->id,
       "title" => $this->title,
       "body" => $this->body,
-      'postId' =>  $this->post_id ?? null,
-      // 'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
       "createdAt" => $this->created_at,
       "updatedAt" => $this->updated_at,
     ];

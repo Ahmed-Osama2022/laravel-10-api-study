@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
   Route::get('/posts', PostController::class);
   Route::get('/comments', CommentControllerInvoke::class);
-
   Route::apiResource('/comments', CommentController::class);
+
   // Get the post by a comment
   Route::get('/comments/{comment}/post', [CommentController::class, 'getPost']);
 });

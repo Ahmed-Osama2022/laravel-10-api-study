@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CommentResource;
+use App\Http\Resources\V1\PostCommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class CommentController extends Controller
    */
   public function index()
   {
-    //
+    return ApiResponse::sendResponse('Comments retrieved successfully', CommentResource::collection(Comment::all()));
   }
 
   /**
@@ -64,6 +65,6 @@ class CommentController extends Controller
       return ApiResponse::sendResponse('No Post founded for this Comment', [], 200);
     }
 
-    return ApiResponse::sendResponse('Post retrieved successfully', $comment->post);
+    return ApiResponse::sendResponse('Post retrieved successfully', new PostCommentResource($comment->post));
   }
 }
