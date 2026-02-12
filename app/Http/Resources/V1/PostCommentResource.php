@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class PostCommentResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -17,9 +16,10 @@ class CommentResource extends JsonResource
   {
     return [
       "id" => $this->id,
+      "title" => $this->title,
       "body" => $this->body,
       'postId' =>  $this->post_id ?? null,
-      'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
+      // 'postTitle' =>  Post::find($this->post_id)->title ?? 'Unknown Post',
       "createdAt" => $this->created_at,
       "updatedAt" => $this->updated_at,
     ];

@@ -3,25 +3,55 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Helpers\ApiResponse;
-use App\Helpers\ApiResponseCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CommentResource;
-use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
   /**
-   * Handle the incoming request.
+   * Display a listing of the resource.
    */
-  public function __invoke(Request $request)
+  public function index()
   {
-    $comments = Comment::all();
+    //
+  }
 
-    if ($comments->isEmpty()) {
-      return ApiResponse::sendResponse('No posts found', [], 200);
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    //
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(Comment $comment)
+  {
+    if (!$comment) {
+      return ApiResponse::sendResponse('No Comment found', [], 200);
     }
 
-    return ApiResponseCollection::sendResponse('Comments retrieved successfully', CommentResource::collection($comments));
+    return ApiResponse::sendResponse('Comment retrieved successfully', new CommentResource($comment));
+  }
+
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Comment $comment)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Comment $comment)
+  {
+    //
   }
 }
