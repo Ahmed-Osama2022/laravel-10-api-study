@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class ApiResponse
+class ApiResponseCollection
 {
   public static function sendResponse($message = null, $result = null, $code = 201)
   {
@@ -10,6 +10,7 @@ class ApiResponse
       'status' => $code,
       'message' => $message,
       'data'    => $result,
+      'count' => $result->count(),
     ];
     return response()->json($response, $code);
   }
