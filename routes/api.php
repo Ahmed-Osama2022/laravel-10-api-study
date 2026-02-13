@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CommentControllerInvoke;
+use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\PostControllerInvoke;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::prefix('v1')->group(function () {
   // Route::get('/posts', PostController::class);
   // Route::get('/comments', CommentControllerInvoke::class);
 
-  Route::apiResource('/posts', CommentController::class);
+  Route::apiResource('/posts', PostController::class);
   Route::apiResource('/comments', CommentController::class);
 
   // Get the post by a comment

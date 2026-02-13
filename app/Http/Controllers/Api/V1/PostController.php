@@ -12,25 +12,48 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
   /**
-   * This function runs automatically when the Controller is called
+   * Display a listing of the resource.
    */
-  public function __invoke()
+  public function index()
   {
     $posts = Post::all();
-    // return $posts;
+    return ApiResponseCollection::sendResponse('Posts retrieved successfully', PostResource::collection($posts), 201);
+  }
 
-    // this for only one post ('One record')
-    // return new PostResource($posts);
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    //
+  }
 
-    // But for a collection of posts
-    // return PostResource::collection($posts);
-
-    // return ApiResponse::sendResponse('Posts retrieved', PostResource::collection($posts));
-
-    if ($posts->isEmpty()) {
-      return ApiResponse::sendResponse('No posts found', [], 200);
+  /**
+   * Display the specified resource.
+   */
+  public function show(Post $post)
+  {
+    // $posts = Post::();
+    if (!$post) {
+      return ApiResponse::sendResponse('Post not found', new PostResource($post), 201);
     }
 
-    return ApiResponseCollection::sendResponse('Posts retrieved', PostResource::collection($posts));
+    return ApiResponse::sendResponse('Post retrieved successfully', new PostResource($post), 201);
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Post $post)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Post $post)
+  {
+    //
   }
 }
