@@ -17,7 +17,7 @@ class PostController extends Controller
   public function index()
   {
     $posts = Post::all();
-    return ApiResponseCollection::sendResponse('Posts retrieved successfully', PostResource::collection($posts), 201);
+    return ApiResponseCollection::sendResponse('Posts retrieved successfully', PostResource::collection($posts), 200);
   }
 
   /**
@@ -35,10 +35,10 @@ class PostController extends Controller
   {
     // $posts = Post::();
     if (!$post) {
-      return ApiResponse::sendResponse('Post not found', new PostResource($post), 201);
+      return ApiResponse::sendResponse('Post not found', new PostResource($post), 200);
     }
 
-    return ApiResponse::sendResponse('Post retrieved successfully', new PostResource($post), 201);
+    return ApiResponse::sendResponse('Post retrieved successfully', new PostResource($post), 200);
   }
 
   /**

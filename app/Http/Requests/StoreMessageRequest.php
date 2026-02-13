@@ -22,7 +22,11 @@ class StoreMessageRequest extends FormRequest
   public function rules(): array
   {
     return [
-      //
+      'name' => 'required|min:3',
+      'email' => ['required', 'email', 'unique', 'email:rfc,dns'],
+      'message' => 'required',
+      'phone' => 'required',
+      // 'status' => ['required', 'boolean'],
     ];
   }
 }
