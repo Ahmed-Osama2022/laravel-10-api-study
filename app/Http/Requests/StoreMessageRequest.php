@@ -34,7 +34,10 @@ class StoreMessageRequest extends FormRequest
     //   ->redirectTo($this->getRedirectUrl());
 
     if ($this->is('api/*')) {
-      $resposne = ApiResponse::sendResponse('Validation errors', $validator->errors(), 422);
+      // $resposne = ApiResponse::sendResponse('Validation errors', $validator->errors(), 422);
+
+      // OR (With errors messages only)!
+      $resposne = ApiResponse::sendResponse('Validation errors', $validator->messages()->all(), 422);
 
       throw new ValidationException($validator, $resposne);
     }
