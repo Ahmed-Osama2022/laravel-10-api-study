@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class StoreMessageRequest extends FormRequest
 {
@@ -13,6 +16,30 @@ class StoreMessageRequest extends FormRequest
   {
     return true;
   }
+
+  /**
+   * Handle a failed validation attempt.
+   *
+   * @param  \Illuminate\Contracts\Validation\Validator  $validator
+   * @return void
+   *
+   * @throws \Illuminate\Validation\ValidationException
+   */
+  protected function failedValidation(Validator $validator)
+  {
+    // $exception = $validator->getException();
+
+    // throw (new $exception($validator))
+    //   ->errorBag($this->errorBag)
+    //   ->redirectTo($this->getRedirectUrl());
+
+    if ($this->is('api/*')) {
+      $resposne = ApiResponse::sendResponse('Validation errors', $validator->errors(), 422);
+
+      throw new ValidationException($validator, $resposne);
+    }
+  }
+
 
   /**
    * Get the validation rules that apply to the request.
