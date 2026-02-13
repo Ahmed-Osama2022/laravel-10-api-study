@@ -20,9 +20,6 @@ return new class extends Migration
       $table->text('message');
       $table->enum('status', ['pending', 'active', 'inactive', 'completed'])->default('pending');
 
-
-
-
       $table->timestamps();
     });
   }
