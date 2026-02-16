@@ -17,7 +17,7 @@ class MessageController extends Controller
     $record = Message::create($data);
 
     if ($record) {
-      return ApiResponse::sendResponse('Message sent successfully', 201);
+      return ApiResponse::sendResponse('Message sent successfully', [], 201);
     }
   }
 }
