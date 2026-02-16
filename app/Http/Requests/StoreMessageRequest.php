@@ -53,7 +53,7 @@ class StoreMessageRequest extends FormRequest
   {
     return [
       'name' => 'required|min:3',
-      'email' => ['required', 'email', 'unique', 'email:rfc,dns'],
+      'email' => ['required', 'email', 'unique:messages', 'email:rfc,dns'],
       'message' => 'required',
       'phone' => 'required',
       // 'status' => ['required', 'boolean'],
