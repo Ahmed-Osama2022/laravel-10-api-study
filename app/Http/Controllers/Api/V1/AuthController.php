@@ -80,7 +80,7 @@ class AuthController extends Controller
       $data['name'] = $user->name;
       $data['email'] = $user->email;
 
-      return ApiResponse::sendResponse('User Loggen in Successfully', $data, 200);s
+      return ApiResponse::sendResponse('User Loggen in Successfully', $data, 200);
     }
 
     return ApiResponse::sendResponse('User Not Found', [], 422);
