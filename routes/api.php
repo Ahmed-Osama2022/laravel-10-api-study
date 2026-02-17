@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CommentControllerInvoke;
 use App\Http\Controllers\Api\V1\MessageController;
@@ -36,4 +37,12 @@ Route::prefix('v1')->group(function () {
 
   // Get the post by a comment
   Route::get('/comments/{comment}/post', [CommentController::class, 'getPost']);
+
+
+  /**
+   * For Authentication
+   */
+  Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+  });
 });
