@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ad extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $fillable = [
+    'title',
+    'slug',
+    'text',
+    'phone',
+    'status',
+    'user_id',
+  ];
 }

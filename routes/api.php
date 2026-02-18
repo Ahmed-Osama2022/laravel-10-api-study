@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AdController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CommentControllerInvoke;
 use App\Http\Controllers\Api\V1\MessageController;
 use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\PostControllerInvoke;
+use App\Models\Ad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,11 @@ Route::prefix('v1')->group(function () {
   // Get the post by a comment
   Route::get('/comments/{comment}/post', [CommentController::class, 'getPost']);
 
+
+  /**
+   * For ADS Module
+   */
+  Route::apiResource('/ads', AdController::class);
 
   /**
    * For Authentication
