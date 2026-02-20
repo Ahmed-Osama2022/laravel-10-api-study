@@ -49,6 +49,8 @@ Route::prefix('v1')->group(function () {
 
     // Get ads based on domain API endpoint
     Route::get('/domain/{domain_id}', [AdController::class, 'getAdByDomain']);
+    // Search the ads
+    Route::get('/search', [AdController::class, 'search']);
   });
 
 

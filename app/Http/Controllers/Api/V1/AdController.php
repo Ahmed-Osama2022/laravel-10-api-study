@@ -92,4 +92,32 @@ class AdController extends Controller
     }
     return ApiResponse::sendResponse('No Ad found', [], 200);
   }
+
+  /**
+   * Search the ads
+   * @param Request $request
+   */
+  public function search(Request $request)
+  {
+    // $query = $request->input('search'); // Old
+    // $query = $request->has('search') ? $request->input('search') : null; // NEW
+    // OR
+    $search_word = $request->input('search') ?? null; // NEW
+
+    // Perform the search function here
+    if ($search_word === null || trim($search_word) === '') {
+      return ApiResponse::sendResponse('Please use a search word', [], 400);
+    }
+    $ads = Ad::where('title', 'LIKE', "%{$search_word}%")
+      ->orWhere('text', 'LIKE', "%{$search_word}%")
+      ->get();
+
+    if (count($ads) > 0) {
+      return ApiResponse::sendResponse('Search results retrieved successfully', AdResource::collection($ads), 200);
+    } else {
+      return ApiResponse::sendResponse('No Ads found for the search query, try another search words', [], 200);
+    }
+    // TEST: return a JSON response with the search word
+    // return response()->json(['queryParameter' => $query], 200);
+  }
 }
