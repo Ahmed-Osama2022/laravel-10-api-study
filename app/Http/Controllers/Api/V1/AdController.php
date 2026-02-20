@@ -72,4 +72,24 @@ class AdController extends Controller
   {
     //
   }
+
+  /**
+   * Get ads based on domain API endpoint
+   */
+  // public function getAdByDomain($domain, $domain_id)
+  // {
+  //   $ads = Ad::where('domain', $domain)->where('domain_id', $domain_id)->get();
+
+  // }
+
+  public function getAdByDomain($domain_id)
+  {
+    // return response()->json($domain_id, 200); // TEST:
+    $ad = Ad::where('domain_id', $domain_id)->get();
+
+    if (count($ad) > 0) {
+      return ApiResponse::sendResponse('Ads in the domain retrieved successfully', AdResource::collection($ad), 200);
+    }
+    return ApiResponse::sendResponse('No Ad found', [], 200);
+  }
 }

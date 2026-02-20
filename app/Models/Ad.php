@@ -17,4 +17,17 @@ class Ad extends Model
     'status',
     'user_id',
   ];
+
+  /**
+   * RELATIONSHIPS
+   */
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function domain()
+  {
+    return $this->belongsTo(Domain::class);
+  }
 }

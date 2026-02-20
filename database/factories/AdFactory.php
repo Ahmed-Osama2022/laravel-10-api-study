@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Domain;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,6 +24,7 @@ class AdFactory extends Factory
       'phone' => fake()->phoneNumber(),
       'status' => fake()->randomElement([1, 2, 3]),
       'user_id' => \App\Models\User::factory(),
+      'domain_id' => Domain::factory(),
     ];
   }
 }

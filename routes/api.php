@@ -44,7 +44,13 @@ Route::prefix('v1')->group(function () {
   /**
    * For ADS Module
    */
-  Route::apiResource('/ads', AdController::class);
+  Route::prefix('/ads')->group(function () {
+    Route::apiResource('/', AdController::class);
+
+    // Get ads based on domain API endpoint
+    Route::get('/domain/{domain_id}', [AdController::class, 'getAdByDomain']);
+  });
+
 
   /**
    * For Authentication
