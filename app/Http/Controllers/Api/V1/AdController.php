@@ -110,47 +110,23 @@ class AdController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
-   * (Using PATCH method for partial update)
-   */
-  // public function update_patch(UpdateAdRequest $request, string $id)
-  // {
-  //   $ad = Ad::find($id);
-
-  //   if (!$ad) {
-  //     return ApiResponse::sendResponse('Ad not found', [], 404);
-  //   }
-
-  //   if ($ad->user_id !== auth()->id()) {
-  //     return ApiResponse::sendResponse('Unauthorized to update this Ad', [], 403);
-  //   }
-
-
-  //   // $this->authorize('update', $ad); // Authorize the action using the "AdPolicy"
-  //   // In your controller, before $request->validated():
-  //   // dd([
-  //   //   'all' => $request->all(),           // Everything sent
-  //   //   'method' => $request->method(),     // GET/POST/PUT/PATCH
-  //   //   'content_type' => $request->header('Content-Type'),
-  //   //   'has_title' => $request->has('title'),
-  //   // ]);
-  //   $data = $request->validated();
-  //   $updated = $ad->update($data);
-
-  //   if ($updated) {
-  //     return ApiResponse::sendResponse('Your Ad updated successfully', new AdResource($ad), 200);
-  //   }
-
-  //   return ApiResponse::sendResponse('Ad not found', [], 404);
-  // }
-
-
-  /**
    * Remove the specified resource from storage.
    */
   public function destroy(string $id)
   {
-    //
+    $ad = Ad::find($id);
+
+    if (!$ad) {
+      return ApiResponse::sendResponse('Ad not found', [], 404);
+    }
+
+    if ($ad->user_id !== auth()->id()) {
+      return ApiResponse::sendResponse('Unauthorized to delete this Ad', [], 403);
+    }
+
+    $ad->delete();
+
+    return ApiResponse::sendResponse('Ad deleted successfully', [], 200);
   }
 
   /**

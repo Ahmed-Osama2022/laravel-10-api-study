@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AdController;
-use App\Http\Controllers\Api\V1\AhmedController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CommentControllerInvoke;
@@ -29,8 +28,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
   // Route::get('/posts', PostController::class);
   // Route::get('/comments', CommentControllerInvoke::class);
-
-  // Route::patch('/ahmed/{ad}', [AhmedController::class, 'update_patch'])->middleware('auth:sanctum');
 
   Route::apiResource('/posts', PostController::class);
   Route::apiResource('/comments', CommentController::class);
