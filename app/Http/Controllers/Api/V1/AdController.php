@@ -104,10 +104,12 @@ class AdController extends Controller
     // OR
     $search_word = $request->input('search') ?? null; // NEW
 
-    // Perform the search function here
+    // Check if the search word is provided and not empty
     if ($search_word === null || trim($search_word) === '') {
       return ApiResponse::sendResponse('Please use a search word', [], 400);
     }
+
+    // Perform the search function here
     $ads = Ad::where('title', 'LIKE', "%{$search_word}%")
       ->orWhere('text', 'LIKE', "%{$search_word}%")
       ->get();
