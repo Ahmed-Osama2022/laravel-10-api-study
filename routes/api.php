@@ -68,6 +68,8 @@ Route::prefix('v1')->group(function () {
     });
   });
 
+  // To get the ads of the authenticated user
+  Route::get('/myads', [AdController::class, 'my_ads'])->middleware('auth:sanctum');
 
   /**
    * For Authentication

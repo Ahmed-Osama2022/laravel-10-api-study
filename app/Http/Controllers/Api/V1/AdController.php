@@ -178,4 +178,15 @@ class AdController extends Controller
     // TEST: return a JSON response with the search word
     // return response()->json(['queryParameter' => $query], 200);
   }
+
+  public function my_ads(Request $request)
+  {
+    $user = $request->user(); // Get the authenticated user
+    $ads = Ad::where('user_id', $user->id)->latest()->get(); // Retrieve ads that belong to the authenticated user
+
+    if (count($ads) > 0) {
+      return ApiResponse::sendResponse('Your Ads retrieved successfully', AdResource::collection($ads), 200);
+    }
+    return ApiResponse::sendResponse('You have no Ads yet', [], 200);
+  }
 }
