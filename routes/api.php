@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AdController;
+use App\Http\Controllers\Api\V1\AhmedController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\CommentControllerInvoke;
@@ -29,6 +30,8 @@ Route::prefix('v1')->group(function () {
   // Route::get('/posts', PostController::class);
   // Route::get('/comments', CommentControllerInvoke::class);
 
+  // Route::patch('/ahmed/{ad}', [AhmedController::class, 'update_patch'])->middleware('auth:sanctum');
+
   Route::apiResource('/posts', PostController::class);
   Route::apiResource('/comments', CommentController::class);
 
@@ -39,13 +42,20 @@ Route::prefix('v1')->group(function () {
   // Get the post by a comment
   Route::get('/comments/{comment}/post', [CommentController::class, 'getPost']);
 
-
   /**
    * For ADS Module
    */
-  Route::prefix('/ads')->group(function () {
-    Route::apiResource('/', AdController::class);
+  Route::apiResource('ads', AdController::class);
+  //
+  // Route::middleware('auth:sanctum')->group(function () {
+  // Route::apiResource('ads', AdController::class)->only(['store', 'update', 'destroy']);
+  // });
+  //
 
+  // Route::patch('ahmed/{id}', [AdController::class, 'update_patch'])->middleware('auth:sanctum');
+
+
+  Route::prefix('/ads')->group(function () {
     // Get ads based on domain API endpoint
     Route::get('/domain/{domain_id}', [AdController::class, 'getAdByDomain']);
     // Search the ads
@@ -56,8 +66,8 @@ Route::prefix('v1')->group(function () {
      */
     Route::middleware('auth:sanctum')->group(function () {
       Route::post('/', [AdController::class, 'store']);
-      Route::patch('/{id}', [AdController::class, 'update']);
-      Route::delete('/{id}', [AdController::class, 'destroy']);
+      Route::patch('/{ad}', [AdController::class, 'update']);
+      Route::delete('/{ad}', [AdController::class, 'destroy']);
     });
   });
 

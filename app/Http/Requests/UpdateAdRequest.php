@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
+use \Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAdRequest extends FormRequest
 {
@@ -12,6 +15,18 @@ class UpdateAdRequest extends FormRequest
   public function authorize(): bool
   {
     return true;
+  }
+
+  protected function failedValidation(Validator $validator)
+  {
+    if ($this->is('api/*')) {
+      // $resposne = ApiResponse::sendResponse('Validation errors', $validator->errors(), 422);
+
+      // OR (With errors messages only)!
+      $resposne = ApiResponse::sendResponse('Validation errors', $validator->messages()->all(), 422);
+
+      throw new ValidationException($validator, $resposne);
+    }
   }
 
   /**
@@ -34,19 +49,19 @@ class UpdateAdRequest extends FormRequest
      * ||=======================================================||
      * But for PUT request use this:
      *  return [
-     *    'title' => 'sometimes|required|min:3',
-     *    'text' => 'sometimes|required',
-     *    'phone' => 'sometimes|required',
-     *    'status' => ['sometimes', 'required', 'boolean'],
-     *    'domain_id' => 'sometimes|required|exists:domains,id',
+     *    'title' => 'sometimes|min:3',
+     *    'text' => 'sometimes',
+     *    'phone' => 'sometimes',
+     *    'status' => ['sometimes', ', 'boolean'],
+     *    'domain_id' => 'sometimes|exists:domains,id',
      *   ];
      *
      */
 
     return [
-      'title' => 'sometimes|required|min:3',
-      'text' => 'sometimes|required',
-      'phone' => 'sometimes|required',
+      'title' => 'sometimes|min:3',
+      'text' => 'sometimes|required|',
+      'phone' => 'sometimes|required|min:10',
       'status' => ['sometimes', 'required', 'boolean'],
       'domain_id' => 'sometimes|required|exists:domains,id',
     ];

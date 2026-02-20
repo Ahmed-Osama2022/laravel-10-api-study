@@ -37,6 +37,7 @@ class AdPolicy
    */
   public function update(User $user, Ad $ad): bool
   {
+    // return false;
     // Allow update if the user is the owner of the ad
     return $user->id === $ad->user_id;
   }
