@@ -16,6 +16,7 @@ class Ad extends Model
     'phone',
     'status',
     'user_id',
+    'domain_id',
   ];
 
   /**

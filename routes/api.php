@@ -7,8 +7,7 @@ use App\Http\Controllers\Api\V1\CommentControllerInvoke;
 use App\Http\Controllers\Api\V1\MessageController;
 use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\PostControllerInvoke;
-use App\Models\Ad;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +50,15 @@ Route::prefix('v1')->group(function () {
     Route::get('/domain/{domain_id}', [AdController::class, 'getAdByDomain']);
     // Search the ads
     Route::get('/search', [AdController::class, 'search']);
+
+    /**
+     * To protect the ads routes with Sanctum authentication middleware
+     */
+    Route::middleware('auth:sanctum')->group(function () {
+      Route::post('/', [AdController::class, 'store']);
+      Route::put('/{id}', [AdController::class, 'update']);
+      Route::delete('/{id}', [AdController::class, 'destroy']);
+    });
   });
 
 

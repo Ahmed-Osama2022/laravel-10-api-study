@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdRequest;
 use App\Http\Resources\V1\AdResource;
 use App\Models\Ad;
 use Illuminate\Http\Request;
@@ -44,9 +45,27 @@ class AdController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request)
+  public function store(StoreAdRequest $request)
   {
-    //
+    // return response()->json(['message' => 'Ad Store TEST'], 201);
+
+    $data = $request->validated();
+    $data['user_id'] = auth()->id(); // Add the authenticated user's ID to the data array
+    // $data['user_id'] = $request->user()->id; // Add the authenticated user's ID to the data array
+
+    /**
+     * Using Policy
+     */
+    $this->authorize('create', Ad::class); // Authorize the action using the "AdPolicy"
+
+    $record = Ad::create($data);
+    if ($record) {
+      return ApiResponse::sendResponse('Ad created successfully', new AdResource($record), 201);
+    }
+    return ApiResponse::sendResponse('Failed to create Ad', [], 500);
+
+
+    // return response()->json(['message' => 'Ad Store TEST', 'data' => $data], 201); // TEST:
   }
 
   /**
