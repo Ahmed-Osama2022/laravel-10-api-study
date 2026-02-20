@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Ad extends Model
 {
@@ -18,6 +19,16 @@ class Ad extends Model
     'user_id',
     'domain_id',
   ];
+
+  // Create a function to generate slug from title
+  public static function boot()
+  {
+    parent::boot();
+
+    static::creating(function ($ad) {
+      $ad->slug = Str::slug($ad->title);
+    });
+  }
 
   /**
    * RELATIONSHIPS

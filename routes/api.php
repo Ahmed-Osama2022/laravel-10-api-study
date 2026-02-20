@@ -56,7 +56,7 @@ Route::prefix('v1')->group(function () {
      */
     Route::middleware('auth:sanctum')->group(function () {
       Route::post('/', [AdController::class, 'store']);
-      Route::put('/{id}', [AdController::class, 'update']);
+      Route::patch('/{id}', [AdController::class, 'update']);
       Route::delete('/{id}', [AdController::class, 'destroy']);
     });
   });

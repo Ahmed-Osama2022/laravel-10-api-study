@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdRequest;
+use App\Http\Requests\UpdateAdRequest;
 use App\Http\Resources\V1\AdResource;
 use App\Models\Ad;
 use Illuminate\Http\Request;
@@ -79,9 +80,23 @@ class AdController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, string $id)
+  public function update(UpdateAdRequest $request, string $id)
   {
-    //
+    $ad = Ad::findOrFail($id);
+
+    if ($ad && $ad->user_id !== auth()->id()) {
+      return ApiResponse::sendResponse('Unauthorized to update this Ad', [], 403);
+    }
+    // $this->authorize('update', $ad); // Authorize the action using the "AdPolicy"
+
+    if ($ad) {
+
+      $data = $request->validated();
+      $ad->update($data);
+      return ApiResponse::sendResponse('Ad updated successfully', new AdResource($ad), 200);
+    } else {
+      return ApiResponse::sendResponse('Ad not found', [], 404);
+    }
   }
 
   /**
